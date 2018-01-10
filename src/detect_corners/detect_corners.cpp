@@ -5,22 +5,28 @@
 
 using namespace cv;
 
-/// Global variables
+/// Variables globales
 Mat src, src_gray;
 Mat dst, detected_edges;
 Mat dst_harris, dst_norm_harris, dst_norm_scaled_harris;
 
-///PARAMETERS
-//Canny parameters
+//Parametres relatifs aux traitements
+  //Parametres de la detection de lignes par Canny
 int edgeThresh = 1;
 int lowThreshold = 10;//TODO : Modifier le seuil pour canny ici
 int const max_lowThreshold = 100;
 int ratio = 3;
 int kernel_size = 3;
-//Harris parameters
+  //Parametres de la detection de coin par un Harris
 int thresh = 200;
 int max_thresh = 255;
 
+int blockSize = 3;
+int apertureSize = 3;
+double k = 0.1;
+
+
+//Fonction : permet de faire une detection de ligne
 void CannyThreshold(int, void*){
   /// Reduce noise with a kernel 3x3
   blur(src_gray, detected_edges, Size(3,3));
@@ -32,30 +38,26 @@ void CannyThreshold(int, void*){
 
  }
 
-/** @function main */
+//Fonction : main()
 int main( int argc, char** argv ){
-  /// Load an image
+
+  //Chargement de l'image
   src = imread( argv[1]);
   if( !src.data ){return -1;}
 
-  // --- CANNY -----
+  //Detection de Canny
   dst.create( src.size(), src.type() );
   cvtColor( src, src_gray, CV_BGR2GRAY );
   CannyThreshold(0, 0);
 
-  // --- HARRIS -----
+  //Detection de Harris
   dst_harris = Mat::zeros( src.size(), CV_32FC1 );
-  /// Detector parameters
-  int blockSize = 3;
-  int apertureSize = 3;
-  double k = 0.1;
-  /// Detecting corners
   cornerHarris( detected_edges, dst_harris, blockSize, apertureSize, k, BORDER_DEFAULT );
-  /// Normalizing
+    //Normalisation de l'image
   normalize( dst_harris, dst_norm_harris, 0, 255, NORM_MINMAX, CV_32FC1, Mat() );
   convertScaleAbs( dst_norm_harris, dst_norm_scaled_harris );
 
-  /// Drawing a circle around corners
+    //Rendu visuel par dessin de cercle rouge sur les coins
   for( int j = 0; j < dst_norm_harris.rows ; j++ )
      {
        for( int i = 0; i < dst_norm_harris.cols; i++ )
@@ -66,10 +68,13 @@ int main( int argc, char** argv ){
               }
           }
      }
+
+  //Affichage
   namedWindow( "I) Canny Edge Detection Result", CV_WINDOW_AUTOSIZE );
   imshow( "I) Canny Edge Detection Result", detected_edges );
   namedWindow( "II) Harris Corner Detection Result", CV_WINDOW_AUTOSIZE );
   imshow( "II) Harris Corner Detection Result", dst_norm_scaled_harris );
+
   waitKey(0);
   return 0;
 }
