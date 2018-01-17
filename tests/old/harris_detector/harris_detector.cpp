@@ -32,6 +32,9 @@ int main( int argc, char** argv )
   /// Detecting corners
   cornerHarris( src_gray, dst, blockSize, apertureSize, k, BORDER_DEFAULT );
 
+  int surrounding = 2*1+1;
+  adaptiveThreshold(src_gray,src_gray, 255, 0, 0, surrounding, constant);
+  /// Normalizing
   normalize( dst, dst_norm, 0, 255, NORM_MINMAX, CV_32FC1, Mat() );
   convertScaleAbs( dst_norm, dst_norm_scaled );
 
