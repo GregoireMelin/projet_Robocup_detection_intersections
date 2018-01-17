@@ -40,23 +40,24 @@ void CannyThreshold(int, void*){
 //Fonction : main()
 int main( int argc, char** argv ){
 
-  //Chargement de l'image
+  // ----- Chargement de l'image ------//
   src = imread( argv[1]);
   if( !src.data ){return -1;}
+  // ----- FIN Chargement de l'image ------//
 
-  //-------------- Detection de Canny --------------//
+  //-------------- Detection de Canny ------------------//
   dst.create( src.size(), src.type() );
   cvtColor( src, src_gray, CV_BGR2GRAY );
   CannyThreshold(0, 0);
+  //-------------- FIN Detection de Canny --------------//
 
   //-------------- Detection de Harris --------------//
   dst_harris = Mat::zeros( src.size(), CV_32FC1 );
   cornerHarris( detected_edges, dst_harris, blockSize, apertureSize, k, BORDER_DEFAULT );
-    //Normalisation de l'image
+  //Normalisation de l'image
   normalize( dst_harris, dst_norm_harris, 0, 255, NORM_MINMAX, CV_32FC1, Mat() );
   convertScaleAbs( dst_norm_harris, dst_norm_scaled_harris );
-
-    //Rendu visuel par dessin de cercle rouge sur les coins
+  //Rendu visuel par dessin de cercle rouge sur les coins
   for( int j = 0; j < dst_norm_harris.rows ; j++ )
      {
        for( int i = 0; i < dst_norm_harris.cols; i++ )
@@ -67,6 +68,7 @@ int main( int argc, char** argv ){
               }
           }
      }
+  //--------------  FIN Detection de Harris --------------//
 
   //-------------- Affichages --------------//
   namedWindow( "I) Canny Edge Detection Result", CV_WINDOW_AUTOSIZE );
@@ -74,6 +76,7 @@ int main( int argc, char** argv ){
   imwrite("detected_lines.png",detected_edges);
   namedWindow( "II) Harris Corner Detection Result", CV_WINDOW_AUTOSIZE );
   imshow( "II) Harris Corner Detection Result", dst_norm_scaled_harris );
+  //-------------- FIN Affichages --------------//
 
   waitKey(0);
   return 0;
