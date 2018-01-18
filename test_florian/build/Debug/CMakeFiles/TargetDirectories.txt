@@ -1,0 +1,3 @@
+/home/ziink/robocup/build/Debug/CMakeFiles/edit_cache.dir
+/home/ziink/robocup/build/Debug/CMakeFiles/rebuild_cache.dir
+/home/ziink/robocup/build/Debug/CMakeFiles/robocup.dir
