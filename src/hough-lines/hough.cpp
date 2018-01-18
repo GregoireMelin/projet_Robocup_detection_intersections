@@ -119,6 +119,9 @@ int main( int argc, char** argv )
        if(pixelVal.val[2] >= 1 && pixelVal.val[1] >= 1 && pixelVal[0] >= 1)
          cdst.at<Vec3b>(j,i) = Vec3b(0,0,0);
      }
+    
+
+
 
   //Affichages
    imshow("detected_lines_pic.png",cdst);
