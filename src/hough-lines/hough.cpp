@@ -22,6 +22,7 @@ int main( int argc, char** argv )
   medianBlur(src,src,7);
   //Affichage de l'image d'origine
   imshow("original",src);
+  imwrite("original_filtered_median.png",src);
 
   cvtColor(src, brightHSV, COLOR_BGR2HSV);
   Vec3b bgrPixel(30, 110, 110);
@@ -119,7 +120,7 @@ int main( int argc, char** argv )
        if(pixelVal.val[2] >= 1 && pixelVal.val[1] >= 1 && pixelVal[0] >= 1)
          cdst.at<Vec3b>(j,i) = Vec3b(0,0,0);
      }
-    
+
 
 
 
