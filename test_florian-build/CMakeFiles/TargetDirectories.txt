@@ -1,3 +1,0 @@
-/home/gregoire/Documents/visionParOrdinateur/projet_Robocup_detection_intersections/test_florian-build/CMakeFiles/edit_cache.dir
-/home/gregoire/Documents/visionParOrdinateur/projet_Robocup_detection_intersections/test_florian-build/CMakeFiles/rebuild_cache.dir
-/home/gregoire/Documents/visionParOrdinateur/projet_Robocup_detection_intersections/test_florian-build/CMakeFiles/robocup.dir
