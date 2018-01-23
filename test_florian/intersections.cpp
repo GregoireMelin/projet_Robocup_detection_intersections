@@ -61,41 +61,34 @@ int GetIntersectType(const cv::Point2i &o1, const cv::Point2i &p1, const cv::Poi
   return c;
 }
 
-Mat algo2(Mat src) {
-  Mat brightHSV;
-  cvtColor(src, brightHSV, COLOR_BGR2HSV);
+Mat filter(Mat src) 
+{
+  Mat picture_HSV;
+  cvtColor(src, picture_HSV, COLOR_BGR2HSV);
 
-  Vec3b bgrPixel(30, 110, 110);
+  Vec3b bgrPixel(30, 110, 110); //average value of pixel from a line in bgr
   Mat3b bgr(bgrPixel);
 
-  /// Convert pixel values to other color spaces.
+  /// Convert pixels values to HSV color spaces.
   Mat3b hsv;
   cvtColor(bgr, hsv, COLOR_BGR2HSV);
 
   Vec3b hsvPixel(hsv.at<Vec3b>(0,0));
 
   int thresh = 40;
-  Scalar minBGR = Scalar(bgrPixel.val[0] - thresh, bgrPixel.val[1] - thresh, bgrPixel.val[2] - thresh);
-  Scalar maxBGR = Scalar(bgrPixel.val[0] + thresh, bgrPixel.val[1] + thresh, bgrPixel.val[2] + thresh);
-
-  Mat maskBGR, resultBGR;
-
-  inRange(src, minBGR, maxBGR, maskBGR);
-  bitwise_and(src, src, resultBGR, maskBGR);
 
   Scalar minHSV = Scalar(hsvPixel.val[0] - thresh, hsvPixel.val[1] - thresh, hsvPixel.val[2] - thresh);
   Scalar maxHSV = Scalar(hsvPixel.val[0] + thresh, hsvPixel.val[1] + thresh, hsvPixel.val[2] + thresh);
 
   Mat maskHSV, resultHSV;
-  inRange(brightHSV, minHSV, maxHSV, maskHSV);
-  bitwise_and(brightHSV, brightHSV, resultHSV, maskHSV);
+  inRange(picture_HSV, minHSV, maxHSV, maskHSV);
+  bitwise_and(picture_HSV, picture_HSV, resultHSV, maskHSV);
 
-  cv::imshow("BRIGHT HSV?", resultHSV);
-
-  pyrMeanShiftFiltering(resultHSV, resultHSV, 20, 50, 0);
+  cv::imshow("Result HSV filter", resultHSV);
 
   return resultHSV;
 }
+
 int main(int argc, char *argv[]) {
   if (argc != 2) return EXIT_FAILURE;
 
@@ -103,7 +96,7 @@ int main(int argc, char *argv[]) {
 
   cv::medianBlur(img_rgb, img_rgb, 9);
 
-  Mat img = algo2(img_rgb);
+  Mat img = filter(img_rgb);
 
   cv::imshow("algo", img);
 
