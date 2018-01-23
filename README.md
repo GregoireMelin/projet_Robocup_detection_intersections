@@ -1,16 +1,16 @@
-#Détection des intersections des lignes d’un terrain de Football
+# Détection des intersections des lignes d’un terrain de Football
 ENSEIRB-ENSC 3A Option Robotique
 Equipe : Florian BRENOT, Grégoire MELIN, Eric NOUMRI
 
 
-##Contexte du projet:
+## Contexte du projet:
 
 La Robocup oppose chaque année des équipes de robot footballeur. Une des équipes participantes et championne du monde l’an dernier, Rhoban, a équipé ses robots de caméras embarquées. Les robots doivent être capables de détecter différents types d’éléments sur le terrain, typiquement le but, le ballon ou encore les lignes du terrain.
 Le projet a pour but de détecter, à partir de photos issues de la caméra embarquée des robots de l’équipe Rhoban, les intersections formées par les lignes du terrain de football.
 
 Comment détecter les intersections des lignes du terrain de football perçue par le robot ?
 
-##Fonctionnement de l'algorithme
+## Fonctionnement de l'algorithme
 
 Pour ce projet, on admet les hypothèses suivantes :
 La balle, les buts et autres items indépendants des lignes du terrain ont été précédemment détectés : Ils ne seront donc pas considérés par l’algorithme.
@@ -21,7 +21,7 @@ La deuxième phase de l’algorithme consiste à détecter les lignes de l’ima
 La troisième phase permet de détecter les intersections formées par les lignes détectées dans l’étape précédente,
 Enfin, la dernière étape a pour but d’identifier la nature des intersections détectées en d’autres termes à estimer si l’intersection est en forme de “L” comme les coins du terrain, en forme de croix (comme dans la partie centrale du milieu de terrain) ou en forme de T comme l’intersections formés par la surface de réparation et la ligne de but.
 
-##Utilisation
+## Utilisation
 
 L’algorithme utilise une image en entrée, pour afficher une image indiquant les lignes délimitant le terrain de football, ainsi que leurs intersections.
 
@@ -34,7 +34,7 @@ L’exécution du programme se fait grâce à la commande suivante :
     ./intersections <input_image>
     où <input_image> décrit le chemin vers l’image que l’on veut traiter (voir exemple)
 
-##Exemple
+## Exemple
 
     cd intersections
     make
