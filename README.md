@@ -14,7 +14,7 @@ Comment détecter les intersections des lignes du terrain de football perçue pa
 
 Pour ce projet, on admet les hypothèses suivantes :
 La balle, les buts et autres items indépendants des lignes du terrain ont été précédemment détectés : Ils ne seront donc pas considérés par l’algorithme.
-Il en va de même pour la partie qui n’est pas le terrain (gradins, personnes qui marcheraient à cotés du terrain  
+Il en va de même pour la partie qui n’est pas le terrain (gradins, personnes qui marcheraient à cotés du terrain.
 L’algorithme fonctionne globalement en 4 phases :
 La première est une phase de filtrage : Cette phase équivaut à nettoyer l’image (en lui appliquant quelques corrections) puis à la seuiller dans le but de n’avoir en sortie que les structures d'intérêts dans notre cas les lignes du terrain.
 La deuxième phase de l’algorithme consiste à détecter les lignes de l’image seuillée précédemment,
@@ -43,9 +43,77 @@ L’exécution du programme se fait grâce à la commande suivante :
 où la variables pathToData représente le chemin permettant d’accéder aux données du projet.
 
 ## Tests & Conclusion
+
+
 ### Tests
-TODO
+
+#### TEST 0 : Comment lire les résultats ?
+
+#####COMMANDE :
+./intersections <input_image>
+
+#####RESULTATS :
+Nb intersections détectées : nombre d'intersections détectées (nature des intersections)
+Nb intersections réélles : nombre d'intersections attendues (nature des intersections attendues)
+
+#### TEST 1
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/175-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 2 (1 "T" 1 "L")
+Nb intersections réélles : 2 (1 "T" 1 "L")
+
+#### TEST 2
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/177-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 0
+Nb intersections réélles :  0
+
+#### TEST 3
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/239-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 18
+Nb intersections réélles :  3 (2 "L" 1 "T")
+
+#### TEST 4
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/196-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 5 (5 "T")
+Nb intersections réélles :  1 (1 "T")
+
+L'écart peut s'expliquer par le fait que les 4 "T" détectés en trop se situe dans le fonde l'image que l'on ne considère pas dans l'algorithme.
+
+#### TEST 5
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/102-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 1 (1 "L")
+Nb intersections réélles :  1 (1 "L")
+
+#### TEST 6
+
+#####COMMANDE :
+./intersections $pathToData/data/log2/039-rgb.png
+
+#####RESULTATS :
+Nb intersections détectées : 3 (2 "L" 1 "T")
+Nb intersections réélles :  3 (2 "T" 1 croix)
+
+
 ### Conclusion
+
 Le projet a été très intéressant et nous a permis de mettre concrètement les compétences acquises en cours de Vision par ordinateur. Le problème le plus long à traiter a été de trouver la bonne approche entre une approche géométrique (basée sur la détection de contours par un filtre de Canny) et une approche colorimétrique. Un deuxième problème a été de trouver les bons paramètres par images. En effet, l’essentiel des traitements étant basés sur des seuillages.
 Les perspectives d’évolution à court-termes pour le projet serait de mettre en oeuvre un prétraitement en amont de la phase de filtrage afin de pouvoir ajuster automatiquement le seuil précédant la binarisation de l’image.
-La deuxième étape serait également d’appliquer l’algorithme à une vidéo, ce qui impliquerait également des problématiques de calibration de la caméra notamment.
